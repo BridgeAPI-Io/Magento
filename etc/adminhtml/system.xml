@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<!--
+/**
+* Copyright Bridge
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.md.
+* It is also available through the world-wide-web at this URL:
+* https://opensource.org/licenses/AFL-3.0
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to tech@202-ecommerce.com so we can send you a copy immediately.
+*
+* @author 202 ecommerce <tech@202-ecommerce.com>
+* @copyright Bridge
+* @license https://opensource.org/licenses/AFL-3.0 Academic Free License (AFL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bridgepay" translate="label" sortOrder="310">
+            <label>Bridge official</label>
+        </tab>
+        <section id="bridge_setup" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Setting up</label>
+            <tab>bridgepay</tab>
+            <resource>Bridgepay_Bridge::general_settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <label>Setting up your Bridge account</label>
+                <field id="text_info_requirments_bridge" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Requirements</frontend_model>
+                    <label><![CDATA[Status]]></label>                    
+                </field>
+                <field id="setup_zone" translate="label comment" type="button" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\SetupBridge</frontend_model>
+                    <label>Setup Bridge</label>
+                    <comment>If you have any problem or the informations in the module aren't up to date you can empty the cache, new data will be fetched automatically.</comment>
+                </field>
+                <field id="note" translate="label" type="label" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <comment><![CDATA[<span style='color:red'><b>Bridge</b> can only be configured in WEBSITE or STORE VIEW, please select in the top-left menu the WEBSITE or STORE VIEW that you want to configure.</span>]]></comment>
+                </field>
+                <field id="mode" translate="label comment" type="select" sortOrder="15" showInDefault="0" showInStore="1" showInWebsite="1">
+                    <label>Environment</label>
+                    <source_model>Bridgepay\Bridge\Model\Config\Source\Mode</source_model>
+                    <comment>This option defines in whitch environment your module is configured</comment>
+                </field>
+                <field id="client_id_production" translate="label comment" sortOrder="20" type="text" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Client ID (Production)</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Login</frontend_model>
+                    <comment>This information is located in your Bridge dashboard: 'Settings' > 'General settings'</comment>
+                </field>
+                <field id="client_secret_production" translate="label comment" sortOrder="30" type="text" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Client Secret (Production)</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Login</frontend_model>
+                    <comment>This information is located in your Bridge dashboard: 'Settings' > 'General settings'</comment>
+                </field>
+                <field id="client_id" translate="label comment" sortOrder="20" type="text" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Client ID (Sandbox)</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Login</frontend_model>
+                    <comment>This information is located in your Bridge dashboard: 'Settings' > 'General settings'</comment>
+                </field>
+                <field id="client_secret" translate="label comment" sortOrder="30" type="text" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Client Secret (Sandbox)</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Login</frontend_model>
+                    <comment>This information is located in your Bridge dashboard: 'Settings' > 'General settings'</comment>
+                </field>
+            </group>
+        </section>
+        <section id="bridge_faq" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>FAQ</label>
+            <tab>bridgepay</tab>
+            <resource>Bridgepay_Bridge::general_settings</resource>
+            <group id="faq1" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>What is Pay by Account-to-Account Transfer (by Bridge)?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>1</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq2" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>How does transfer payment work?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>2</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq3" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>How long will it take to receive my payment?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>3</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq4" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>What are the technical requirements of the Magento2 module?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment><![CDATA[- Magento 2+<br/>- PHP 7+<br/>- CURL<br/>- TLS 1.2+]]></comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq5" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>How do I create my account on the Bridge dashboard?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment><![CDATA[Register <a href="https://dashboard.bridgeapi.io/signup?utm_campaign=connector_magento" target="_blank">here</a> to access the Bridge dashboard.]]></comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq6" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>How do I check that the module runs well?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>6</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq7" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>How do I receive my first payments in my account?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>7</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq8" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Do I need to configure Bridge webhooks?</label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment>8</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+            <group id="faq9" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Do you have a question about your account, billing, fees, contract?<br />How do I contact support?]]></label>
+                <field id="comment" translate="label comment" sortOrder="10" type="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact</label>
+                    <comment>All if in FAQItem !</comment>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\FAQItem</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="payment">
+            <group id="bridge" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pay with Bridge</label>
+                <field id="bridge_note" translate="label" type="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <comment><![CDATA[<span style='color:red'><b>Bridge</b> can only be configured in WEBSITE or STORE VIEW, please select in the top-left menu the WEBSITE or STORE VIEW that you want to configure.</span>]]></comment>
+                </field>
+                <field id="bridge_note_notconfigured" translate="label comment" type="text" sortOrder="1" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Warning if the module has not account configurated.</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\AccountConfigured</frontend_model>                    
+                    <comment>
+                        <![CDATA[The module is not yet connected, the payment method won’t work. To connect your account please go to Stores > configuration > Bridge Official > Setting up.]]>
+                    </comment>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="0" showInWebsite="1" canRestore="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="order_status_waiting" translate="label comment" type="select" sortOrder="15" showInDefault="0" showInWebsite="1" canRestore="1" showInStore="1">
+                    <label>Status of pending wire transfers</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\NewStatus</source_model>
+                    <comment>The order will be set to the selected status while waiting for the transfer to be processed by the issuing bank</comment>
+                </field>
+                <field id="order_status_processing" translate="label comment" type="select" sortOrder="15" showInDefault="0" showInWebsite="1" canRestore="1" showInStore="1">
+                    <label>Status of received wire transfers</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+                    <comment>The order will be placed in this status upon execution of payment by the issuing bank</comment>
+                </field>
+                <field id="info_order_status" translate="label comment" type="multiselect" sortOrder="21" showInDefault="0" showInWebsite="1" canRestore="1">
+                    <label>Warning about payment state (custom)</label>
+                    <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\InfoTriggerStatus</frontend_model>
+                    <comment>Assigning the payment states to different statuses will change the events started by Magento. Exemple : on payment accepted, Magento sends an email to your customer to confirm his order.</comment>
+                </field>                
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="0" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Payment from Applicable Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="51" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Payment from Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

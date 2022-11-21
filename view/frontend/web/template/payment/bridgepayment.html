@@ -1,0 +1,94 @@
+<div id="bridge-method" class="bridgepayment payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <span data-bind="text: getTitle()"></span>
+            <img class="bridge-logo-checkout" data-bind="attr: {'src': getLogo()}" alt="logo" />
+        </label>
+    </div>
+
+    <div class="payment-method-content">
+        <div id="checkout-bridge-payment-form" class="w-100">       
+            <div id="bridge-payment" class="w-100">
+                <div id="bridge-banklist" class="p-2">
+                    <div class="bridge-pay-title m-1"><span data-bind="text: getT('choose')"></span></div>
+                    <div class="input-wrapper">
+                        <button type="button" data-bind="
+                            click: searchBank.bind($data, true),
+                            attr: {'id' : 'bridge-back-button'},
+                            visible:false
+                            " class="btn btn-primary btn-back">
+                            <span data-bind="text: getT('back')"></span>
+                        </button>
+                        <input type="text" event="{keyup: searchBank.bind($data, false)}" event="{change: searchBank.bind($data, false)}" class="form-control" data-bind="                
+                        attr: {placeholder: getT('search'), id: 'bridge_search'}">
+                    </div>
+                    <div class="banks-wrapper mb-2">
+                        <input type="number" data-bind="value: 0, visible: false, attr:{'id': 'bridge-bank-level'}" />
+                        <input type="text" data-bind="value: '', visible: false, attr:{'id': 'bridge-key-bank-selected'}" />
+                        <input type="number" data-bind="value: -1, visible: false, attr:{'id': 'bridge-id-bank-selected'}" />
+                        <input type="number" data-bind="value: -1, visible: false, attr:{'id': 'bridge-id-bank-parent-selected'}" />
+                        <!-- ko foreach: {data: getBanks(), as: 'bank'} -->                 
+                            <div class="bank-wrapper"
+                                data-bind="
+                                    attr: {
+                                        'data-id-parent' : bank.id_parent,
+                                        'data-is-children': bank.is_children,
+                                        'id': 'bridge_bank_' + bank.id_bank
+                                    },
+                                    visible: bank.is_children == false,
+                                    click:$parent.selectBank.bind($data, bank.id_bank, bank.has_children, bank.id_parent)
+                                    ">
+                                <div class="bank-image-wrapper">
+                                    <img class="bank-image" 
+                                        data-bind="attr: {'src': bank.logo, 'title': bank.name, 'alt': bank.name}"/>
+                                </div>
+                                <div class="bank-name pl-2">
+                                    <span data-bind="text: bank.name"></span>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+                        <div class="bank-wrapper" data-bind="attr: {'id': 'bridge_no_banks'}, visible: isThereBanks()">
+                            <div class="bank-name pl-2 "message message-warning warning">
+                                <span data-bind="text: getT('noresult')"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bridge-alerts" class="container"></div>
+            </div>
+        </div>
+        
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        id="bridgepayment-checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')}
+                        "
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

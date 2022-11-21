@@ -1,0 +1,119 @@
+/*
+* Copyright Bridge
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.md.
+* It is also available through the world-wide-web at this URL:
+* https://opensource.org/licenses/AFL-3.0
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to tech@202-ecommerce.com so we can send you a copy immediately.
+*
+* @author 202 ecommerce <tech@202-ecommerce.com>
+* @copyright Bridge
+* @license https://opensource.org/licenses/AFL-3.0 Academic Free License (AFL 3.0)                                                     
+ */
+
+ #row_bridge_setup_general_text_info_requirments_bridge {
+   display: flex;
+   align-items: center;
+ }
+ 
+ #bridge_setup_general .col3-config-blocks {
+   width: 31%;
+   float: none;
+   display: inline-block;
+}
+
+#bridge_setup_general .col3-config-blocks.first {
+   margin-left: 14%;
+   margin-right: 8%;
+}
+
+#bridge_setup_general .col3-config-blocks.last {
+   margin-right: 14%;
+   margin-left: 0;
+}
+
+#bridge_setup_general .config-bridge-server {
+   margin: 12px 0;
+}
+
+#bridge_setup_general .config-bridge-server span {
+   width: 18px;
+   display: inline-block;
+   height: 16px;
+   vertical-align: middle;
+}
+
+#bridge_setup_general .config-bridge-server .invalid {
+   background: url("../images/invalid.png") no-repeat;
+
+}
+
+#bridge_setup_general .config-bridge-server .valid {
+   background: url("../images/valid.png") no-repeat;
+}
+
+#bridge_setup_general .info-item {
+   flex: 1 1 0px;
+}
+
+#bridge_setup_general .d-flex {
+   display: flex;
+}
+
+#bridge_setup_general .mt-2 {
+   margin-top: 16px;
+}
+
+#row_bridge_setup_general_text_info_requirments {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.bridge-logo-order {
+   height:40px;
+}
+
+.bridge-col-12 {
+   width:90%;
+   margin: auto 5%;
+}
+
+.bridge-fleft {
+   float:left;
+}
+
+#row_payment_us_bridge_bridge_note_notconfigured .message-warning:before {
+   color: black!important;   
+}
+
+
+.config-faqitem .config-faqitem-title {
+   margin: 40px 0;
+}
+
+.config-faqitem .config-faqitem-content p {
+   margin: 0 0 25px;
+}
+
+#copy-clip-bridge {
+   display: flex;
+   align-items: start;
+}
+
+#copy-clip-bridge svg {
+   position:relative;
+   top:3px;
+}
+
+.truncate {   
+   width: 325px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;    
+}

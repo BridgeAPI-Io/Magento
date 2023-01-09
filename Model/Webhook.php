@@ -19,11 +19,12 @@
 
 namespace Bridgepay\Bridge\Model;
 
-use Bridgepay\Bridge\API\WebhookInterface;
 use Bridgepay\Bridge\Model\WebHookIP;
+use Bridgepay\Bridge\API\WebhookInterface;
 use Bridgepay\Bridge\Helper\Config as BridgeConfig;
 use Bridgepay\Bridge\Model\Payment\PaymentStatuses;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 
 class Webhook implements WebhookInterface
 {
@@ -270,7 +271,7 @@ class Webhook implements WebhookInterface
     private function isRemoteServerValid()
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $remote = $objectManager->get(Magento\Framework\HTTP\PhpEnvironment\RemoteAddress::class);
+        $remote = $objectManager->get(RemoteAddress::class);
         $IpAddress = $remote->getRemoteAddress();
 
         if (in_array($IpAddress, WebHookIP::AUTHORIZED_IP) === false) {

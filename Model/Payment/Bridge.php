@@ -20,6 +20,8 @@
 namespace Bridgepay\Bridge\Model\Payment;
 
 use Magento\Framework\DataObject;
+use Bridgepay\Bridge\Helper\Config;
+use Magento\Store\Model\ScopeInterface;
 use Magento\Quote\Api\Data\PaymentInterface;
 
 class Bridge extends \Magento\Payment\Model\Method\AbstractMethod
@@ -28,6 +30,13 @@ class Bridge extends \Magento\Payment\Model\Method\AbstractMethod
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
+
+    /**
+     * Core store config
+     *
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
 
     /**
      * @var string
@@ -110,6 +119,7 @@ class Bridge extends \Magento\Payment\Model\Method\AbstractMethod
         );
 
         $this->storeManager = $storeManager;
+        $this->scopeConfig = $scopeConfig;
         $this->loggerBridge = $logger;
     }
 
@@ -242,5 +252,24 @@ class Bridge extends \Magento\Payment\Model\Method\AbstractMethod
         $isAvailable = parent::isAvailable($quote);
         $this->logger->debug(['Bridge payment is available : ' . $isAvailable], null, true);
         return $isAvailable;
+    }
+
+    /**
+     * Retrieve payment method title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        $storeId = $this->storeManager->getStore()->getId();
+        if ($storeId > 0) {
+            return __($this->scopeConfig->getValue(
+                Config::XML_PATH_PAYMENT_TITLE,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            ));
+        }
+
+        return parent::getTitle();
     }
 }

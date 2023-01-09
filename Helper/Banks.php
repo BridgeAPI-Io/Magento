@@ -19,14 +19,15 @@
 
 namespace Bridgepay\Bridge\Helper;
 
-use Magento\Framework\UrlInterface;
-use BridgeSDK\Model\Payment\Payment;
-use BridgeSDK\Request\PaymentRequest;
-use BridgeSDK\Request\ListBanksRequest;
-use BridgeSDK\Model\Payment\PaymentUser;
 use BridgeSDK\Model\Payment\CreatePayment;
-use BridgeSDK\Request\CreatePaymentRequest;
 use BridgeSDK\Model\Payment\CreatePaymentTransaction;
+use BridgeSDK\Model\Payment\Payment;
+use BridgeSDK\Model\Payment\PaymentUser;
+use BridgeSDK\Request\CreatePaymentRequest;
+use BridgeSDK\Request\ListBanksRequest;
+use BridgeSDK\Request\PaymentRequest;
+use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
+use Magento\Framework\UrlInterface;
 
 /**
  * Banks manipulation helper
@@ -111,7 +112,7 @@ class Banks
         \Magento\Sales\Api\Data\OrderInterface $order
     ) {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $remote = $objectManager->get(Magento\Framework\HTTP\PhpEnvironment\RemoteAddress::class);
+        $remote = $objectManager->get(RemoteAddress::class);
         $IpAddress = $remote->getRemoteAddress();
         $orderId = empty($order->getEntityId()) === false ? $order->getEntityId() : $order->getExtOrderId();
         $clientRef = empty($order->getCustomerId()) === false ? $order->getCustomerId()

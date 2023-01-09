@@ -25,6 +25,7 @@ class Config
      * Config keys
      */
     public const XML_PATH_IS_ACTIVE = 'payment/bridge/active';
+    public const XML_PATH_PAYMENT_TITLE = 'payment/bridge/title';
     public const XML_PATH_IS_WEBHOOK_CONTACTED = 'payment/bridge/webhook_contacted';
     public const XML_PATH_IS_IP_WHITELIST = 'bridge_setup/general/enable_ip_whitelist';
     public const XML_PATH_IP_WHITELIST = 'bridge_setup/general/ip_whitelist';

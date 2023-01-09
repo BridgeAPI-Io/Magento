@@ -149,7 +149,7 @@ class ConfigProvider implements ConfigProviderInterface
                     'banks' => self::$banks,
                     'translations' => $translations,
                     'logo' => $this->assetRepository
-                                ->createAsset('Bridgepay_Bridge::images/logo-order.gif')
+                                ->createAsset('Bridgepay_Bridge::images/logo-payment.png')
                                 ->getUrl()
                 ]
             ]

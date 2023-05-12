@@ -32,7 +32,7 @@ class Requirements extends \Magento\Config\Block\System\Config\Form\Field
     /**
      * @var string
      */
-    public const CUSTOM_STATUS_CODE = 'bridge_waiting';
+    const CUSTOM_STATUS_CODE = 'bridge_waiting';
 
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\Status
@@ -295,13 +295,13 @@ class Requirements extends \Magento\Config\Block\System\Config\Form\Field
      */
     private function isApiConnected()
     {
-        $storeId = (int) $this->getRequest()->getParam('store');
+        $storeId = $this->getRequest()->getParam('store');
         $websiteId = $this->getRequest()->getParam('website');
         $isValid = 'invalid';
 
         if (!$storeId && !$websiteId) {
-            $message = __('Error not in website or store context');
-        } else {
+            $message = __('Error not in website or storeview context');
+        } else {        
             try {
                 $isApiConnected = $this->bankHelper->getBanks(true, $storeId, $websiteId);
                 $isValid = $isApiConnected['success'] === true ? 'valid' : 'invalid';

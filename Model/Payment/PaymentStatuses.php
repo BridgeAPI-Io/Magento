@@ -24,7 +24,7 @@ class PaymentStatuses
     /**
      * @var array status created : CREA, ACTC, ACCP
      */
-    public const CREATED_PAYMENTS = [
+    const CREATED_PAYMENTS = [
         'CREA',
         'ACTC',
         'ACCP',
@@ -33,7 +33,7 @@ class PaymentStatuses
     /**
      * @var array status success : PDNG, ACSP, PART or ACSC
      */
-    public const SUCCESS_PAYMENTS = [
+    const SUCCESS_PAYMENTS = [
         'PDNG',
         'ACSP',
         'PART',
@@ -43,7 +43,7 @@ class PaymentStatuses
     /**
      * @var array status done : PART or ACSC
      */
-    public const DONE_PAYMENTS = [
+    const DONE_PAYMENTS = [
         'PART',
         'ACSC',
     ];
@@ -51,7 +51,7 @@ class PaymentStatuses
     /**
      * @var array status rejected : CANC, RJCT
      */
-    public const REJECTED_PAYMENTS = [
+    const REJECTED_PAYMENTS = [
         'CANC',
         'RJCT',
     ];

@@ -24,20 +24,20 @@ class Config
     /**
      * Config keys
      */
-    public const XML_PATH_IS_ACTIVE = 'payment/bridge/active';
-    public const XML_PATH_PAYMENT_TITLE = 'payment/bridge/title';
-    public const XML_PATH_IS_WEBHOOK_CONTACTED = 'payment/bridge/webhook_contacted';
-    public const XML_PATH_IS_IP_WHITELIST = 'bridge_setup/general/enable_ip_whitelist';
-    public const XML_PATH_IP_WHITELIST = 'bridge_setup/general/ip_whitelist';
+    const XML_PATH_IS_ACTIVE = 'payment/bridgepayment/active';
+    const XML_PATH_PAYMENT_TITLE = 'payment/bridgepayment/title';
+    const XML_PATH_IS_WEBHOOK_CONTACTED = 'payment/bridgepayment/webhook_contacted';
+    const XML_PATH_IS_IP_WHITELIST = 'bridge_setup/general/enable_ip_whitelist';
+    const XML_PATH_IP_WHITELIST = 'bridge_setup/general/ip_whitelist';
 
-    public const XML_PATH_API_DEV_MODE = 'bridge_setup/general/mode';
+    const XML_PATH_API_DEV_MODE = 'bridge_setup/general/mode';
     
-    public const XML_PATH_API_CLIENT_ID = 'bridge_setup/general/client_id';
-    public const XML_PATH_API_CLIENT_SECRET = 'bridge_setup/general/client_secret';
+    const XML_PATH_API_CLIENT_ID = 'bridge_setup/general/client_id';
+    const XML_PATH_API_CLIENT_SECRET = 'bridge_setup/general/client_secret';
 
-    public const XML_PATH_API_CLIENT_ID_PRODUCTION = 'bridge_setup/general/client_id_production';
-    public const XML_PATH_API_CLIENT_SECRET_PRODUCTION = 'bridge_setup/general/client_secret_production';
+    const XML_PATH_API_CLIENT_ID_PRODUCTION = 'bridge_setup/general/client_id_production';
+    const XML_PATH_API_CLIENT_SECRET_PRODUCTION = 'bridge_setup/general/client_secret_production';
 
-    public const XML_PATH_ORDER_WAITING = 'payment/bridge/order_status_waiting';
-    public const XML_PATH_ORDER_TRANSFERT_DONE = 'payment/bridge/order_status_processing';
+    const XML_PATH_ORDER_WAITING = 'payment/bridge/order_status_waiting';
+    const XML_PATH_ORDER_TRANSFERT_DONE = 'payment/bridge/order_status_processing';
 }

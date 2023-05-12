@@ -43,7 +43,7 @@ class SetupBridge extends \Magento\Config\Block\System\Config\Form\Field
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Psr\Log\LoggerInterface $logger,
-        ?array $data = []
+        array $data = []
     ) {
         if (is_array($data) === false) {
             $data = [];

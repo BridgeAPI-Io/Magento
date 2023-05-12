@@ -140,7 +140,7 @@
             </group>
         </section>
         <section id="payment">
-            <group id="bridge" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="bridgepayment" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Pay with Bridge</label>
                 <field id="bridge_note" translate="label" type="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <comment><![CDATA[<span style='color:red'><b>Bridge</b> can only be configured in WEBSITE or STORE VIEW, please select in the top-left menu the WEBSITE or STORE VIEW that you want to configure.</span>]]></comment>

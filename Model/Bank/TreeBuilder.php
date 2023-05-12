@@ -96,11 +96,11 @@ class TreeBuilder
             } elseif ($b['country'] == $preferedIsoCode) {
                 return 1;
             } else {
-                return $a['country'] > $b['country'];
+                return $a['country'] > $b['country'] ? 1 : -1;
             }
         }
 
-        return $a['name'] > $b['name'];
+        return $a['name'] > $b['name'] ? 1 : -1;
     }
 
     /**

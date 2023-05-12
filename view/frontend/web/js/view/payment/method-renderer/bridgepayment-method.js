@@ -51,7 +51,6 @@ define([
          * Display Bank List
          */
         getBanks: function () {
-            console.log('get bank');
             var banks = [];
             $.each(window.checkoutConfig.payment.bridgepayment.banks, (key, bank) => {
                 bank.id_parent = key;                
@@ -86,14 +85,7 @@ define([
             var idSelectedParent = parseInt($('#bridge-id-bank-parent-selected').val());
             var levelBanks = parseInt($('#bridge-bank-level').val());
 
-            console.log('Search bank : ' + search);
-            console.log('Actual level banks: ' + levelBanks);
-            console.log('idSelectedBank: ' + idSelectedBank);
-            console.log('idSelectedParent: ' + idSelectedParent);
-            console.log('keySelectedBank : ' + keySelectedBank);
-
             if (reset === true) {
-                console.log('reset search');
                 $('.banks-wrapper [data-is-children="0"]').css('display', 'flex');
                 $('.banks-wrapper [data-is-children="1"]').css('display', 'none');                
                 $('#bridge_search').val('');
@@ -106,14 +98,12 @@ define([
             }
 
             if (!search || search == '' || search.length < 2) {
-                console.log('No search');
                 $('.bank-wrapper').css('display', 'none');
                 if (levelBanks === 0) {               
                     $('.banks-wrapper [data-is-children="0"]').css('display', 'flex');
                 } else {                    
                     var selectedBank = '#bridge_bank_parent_' + keySelectedBank;
                     var childrenBanks = $('.banks-wrapper [data-id-parent="' + keySelectedBank + '"]');
-                    console.log(childrenBanks);
                     childrenBanks.css('display', 'flex');
                     $(selectedBank).css('display', 'none');
                 }
@@ -123,10 +113,10 @@ define([
             $('.bank-wrapper').css('display', 'none');
 
             var filteredBanks = this.banks.filter(
-                bank => bank.name.toLowerCase().includes(search.toLowerCase()) && ( idSelectedParent === -1 || bank.id_parent === idSelectedParent )
+                bank => this.filterBank(bank, search, idSelectedParent)
             );
 
-            console.log(filteredBanks);
+            
 
             if (filteredBanks.length <= 0) {
                 $('#bridge_no_banks').css('display', 'block');
@@ -140,14 +130,16 @@ define([
             });
         },
 
+        filterBank: function(bank, search, idSelectedParent) {
+            var isBankFound = bank.name.toLowerCase().includes(search.toLowerCase());
+            if (search.toLowerCase().includes('so') || search.toLowerCase().includes('ge')) {
+                isBankFound = isBankFound || bank.name.includes('SG');
+            }
+            return isBankFound && (idSelectedParent === -1 || bank.id_parent === idSelectedParent);
+        },
+
         selectBank: function(idBank, hasChildren, key) {
             var selectedBank = '#bridge_bank_' + idBank;
-            console.log('Has Children :' + hasChildren);
-            console.log('Parent key :' + key);
-            
-            console.log('Selected bank :');
-            console.log('id : ' + selectedBank);     
-
             $('#bridge-key-bank-selected').val(key);
             $('#bridge-bank-level').val(hasChildren === false ? 0 : 1);
             $('#bridge-id-bank-parent-selected').val(hasChildren === false ? -1 : key);
@@ -165,7 +157,6 @@ define([
                 $('#bridge-back-button').css('display', 'inline-block');
                 $('#bridgepayment-checkout').attr('disabled', true);
             }
-            console.log('level after select: ' + hasChildren === false ? 0 : 1);
         },
 
         /**

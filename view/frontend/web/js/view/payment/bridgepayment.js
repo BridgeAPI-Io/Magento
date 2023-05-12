@@ -25,7 +25,6 @@
         'use strict';
 
         if (window.checkoutConfig.payment.bridgepayment.banks.length > 0) {
-            console.log('push bridgepayment in rendererlist');
             rendererList.push(
                 {
                     type: 'bridgepayment',

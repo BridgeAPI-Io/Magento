@@ -24,12 +24,14 @@
             <values>
                 <value id="bridge-banks-media" type="host">https://web.bankin.com</value>
                 <value id="bridge-amazonaws-banks-media" type="host">https://s3-eu-west-1.amazonaws.com</value>
+                <value id="bridgeapi-io-media" type="host">*.bridgeapi.io</value>
             </values>
         </policy>
         <policy id="img-src">
             <values>
                 <value id="bridge-banks-images" type="host">https://web.bankin.com</value>
                 <value id="bridge-amazonaws-banks-images" type="host">https://s3-eu-west-1.amazonaws.com</value>
+                <value id="bridgeapi-io-images" type="host">*.bridgeapi.io</value>
             </values>
         </policy>
     </policies>

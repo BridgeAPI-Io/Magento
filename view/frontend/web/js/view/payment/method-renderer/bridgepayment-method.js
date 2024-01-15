@@ -55,21 +55,24 @@ define([
             $.each(window.checkoutConfig.payment.bridgepayment.banks, (key, bank) => {
                 bank.id_parent = key;                
                 bank.is_children = 0;
-                if (typeof bank.id_bank == 'undefined') {
-                    bank.id_bank = 'parent_' + key;
-                }
-                if (bank.children && bank.children.length > 0) {
-                    bank.has_children = true;
-                    banks.push(bank);
-                    $.each(bank.children, (keyChild, childBank) => {
-                        childBank.id_parent = key;
-                        childBank.is_children = 1;
-                        childBank.has_children = false;
-                        banks.push(childBank);
-                    });
-                } else {
-                    bank.has_children = false;
-                    banks.push(bank);
+                var removedBanks = ['SG', 'LCL'];
+                if (removedBanks.indexOf(bank.name) === -1) {
+                    if (typeof bank.id_bank == 'undefined') {
+                        bank.id_bank = 'parent_' + key;
+                    }
+                    if (bank.children && bank.children.length > 0) {
+                        bank.has_children = true;
+                        banks.push(bank);
+                        $.each(bank.children, (keyChild, childBank) => {
+                            childBank.id_parent = key;
+                            childBank.is_children = 1;
+                            childBank.has_children = false;
+                            banks.push(childBank);
+                        });
+                    } else {
+                        bank.has_children = false;
+                        banks.push(bank);
+                    }
                 }
             });
             this.banks = banks;
@@ -132,9 +135,6 @@ define([
 
         filterBank: function(bank, search, idSelectedParent) {
             var isBankFound = bank.name.toLowerCase().includes(search.toLowerCase());
-            if (search.toLowerCase().includes('so') || search.toLowerCase().includes('ge')) {
-                isBankFound = isBankFound || bank.name.includes('SG');
-            }
             return isBankFound && (idSelectedParent === -1 || bank.id_parent === idSelectedParent);
         },
 

@@ -82,6 +82,11 @@ class ConfigProvider implements ConfigProviderInterface
     protected static $countryCode;
 
     /**
+     * @var \Magento\Directory\Helper\Data
+     */
+    protected $directoryHelper;
+
+    /**
      * ConfigProvider constructor.
      *
      * @param CheckoutSession $checkoutSession

@@ -11,7 +11,42 @@
     </div>
 
     <div class="payment-method-content">
-        <div id="checkout-bridge-payment-form" class="w-100">       
+        <div class="w-100 bridge-reassur">
+            <p>
+                <span data-bind="i18n: 'Pay by bank transfer with Bridge. Settle your order by validating the transfer directly from your bank: simple, 100% secure and without credit card.'"></span><br />
+            </p>
+            <p class="mt-25">
+                <span data-bind="i18n: 'How does it work?'"></span>
+            </p>
+            <div class="d-flex fd-row mt-25">
+                <div class="reassur-block">
+                    <img data-bind="attr: {'src': getImages().bank, 'alt': $t('Select your bank')}" />
+                    <span data-bind="i18n: 'Select your bank'"></span>
+                </div>
+                <div class="img-arrow">
+                    <img data-bind="attr: {'src': getImages().arrow}" alt="arrow" />
+                </div>
+                <div class="reassur-block">
+                    <img data-bind="attr: {'src': getImages().auth, 'alt': $t('Authenticate')}" />
+                    <span data-bind="i18n: 'Authenticate'"></span>
+                </div>
+                <div class="img-arrow">
+                    <img data-bind="attr: {'src': getImages().arrow}" alt="arrow" />
+                </div>
+                <div class="reassur-block">
+                    <img data-bind="attr: {'src': getImages().valid, 'alt': $t('Validate')}" />
+                    <span data-bind="i18n: 'Validate'"></span>
+                </div>
+                <div class="img-arrow">
+                    <img data-bind="attr: {'src': getImages().arrow}" alt="arrow" />
+                </div>
+                <div class="reassur-block">
+                    <img data-bind="attr: {'src': getImages().done, 'alt': $t('Finished !')}" />
+                    <span data-bind="i18n: 'Finished !'"></span>
+                </div>
+            </div>
+        </div>
+        <div id="checkout-bridge-payment-form" class="w-100">
             <div id="bridge-payment" class="w-100">
                 <div id="bridge-banklist" class="p-2">
                     <div class="bridge-pay-title m-1"><span data-bind="text: getT('choose')"></span></div>
@@ -52,10 +87,17 @@
                             </div>
                         <!-- /ko -->
                         <div class="bank-wrapper" data-bind="attr: {'id': 'bridge_no_banks'}, visible: isThereBanks()">
-                            <div class="bank-name pl-2 "message message-warning warning">
+                            <div class="bank-name pl-2 message message-warning warning">
                                 <span data-bind="text: getT('noresult')"></span>
                             </div>
                         </div>
+                    </div>
+                    <div class="bridge-legal-mentions">
+                        <span data-bind="text: getT('legal_mentions_text_part_1')"></span>
+                        <a data-bind="attr: {'href': getTermsAndConditionsLink()}, text: getT('legal_mentions_link_part_2')" target="_blank"></a>
+                        <span data-bind="text: getT('legal_mentions_text_part_3')"></span>
+                        <a data-bind="attr: {'href': getPrivacyPolicyLink()}, text: getT('legal_mentions_link_part_4')" target="_blank"></a>
+                        <span data-bind="text: getT('legal_mentions_text_part_5')"></span>
                     </div>
                 </div>
                 <div id="bridge-alerts" class="container"></div>

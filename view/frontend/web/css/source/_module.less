@@ -43,8 +43,63 @@
         left:4px;
     }
 
+    #bridge-method {
+        .mt-25 {
+            margin-top: 25px;
+        }
+
+        .d-flex {
+            display:flex;
+        }
+
+        .d-fa-center {
+            align-items: center;
+        }
+
+        .d-fj-center {
+            justify-content: center;
+        }
+
+        .fd-col {
+            flex-direction: column;
+        }
+
+        .fd-row {
+            flex-direction: row;
+        }
+
+        .reassur-block {    
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            display: flex;
+            padding: 0 2px;
+            width: 95px;
+            
+            img {
+                height:45px;
+                width:45px;
+            }
+            
+            span {
+                height: 50px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .img-arrow {    
+            height: auto;
+            padding-top: 15px;
+        }
+    }
+    .bridge-reassur {
+        flex-direction: row;
+    }
+
     #bridge-payment {
         margin-bottom: 20px;
+        margin-top: 20px;
 
         #bridge-banklist {
             margin: auto;
@@ -170,6 +225,11 @@
                 }
             }
         }
+        .bridge-legal-mentions {
+            font-size: 14px;
+            margin-top: 1rem;
+            text-align: justify;
+        }
         .buttons-wrapper {
             margin-top: 1rem;
             text-align: center;
@@ -181,11 +241,25 @@
 //  Mobile
 //  _____________________________________________
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+    
+    #bridge-method {
+        .reassur-block {    
+            font-size: 1.2rem!important;
+            width:60px;
+            font-size: 10px !important;
+            font-weight:600;
+
+            img {
+                width:35px;
+                height:35px;
+            }
+        }
+    }
     #bridge-payment {
 
         #bridge-banklist {
             .bank-name {
-                font-size: 0.85rem!important;
+                font-size: 1.2rem!important;
                 font-weight: 600!important;
             }
 

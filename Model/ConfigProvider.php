@@ -20,6 +20,7 @@
 namespace Bridgepay\Bridge\Model;
 
 use Bridgepay\Bridge\Model\Bank\TreeBuilder;
+use Bridgepay\Bridge\Model\Payment\LegalMentions;
 use BridgeSDK\Response\ListBanksResponse;
 use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
@@ -143,6 +144,11 @@ class ConfigProvider implements ConfigProviderInterface
             'choose' => __('Choose my bank'),
             'noresult' => __('No results to display'),
             'back' => __('Back'),
+            'legal_mentions_text_part_1' => __('By continuing, you agree to the'),
+            'legal_mentions_link_part_2' => __('ToS'),
+            'legal_mentions_text_part_3' => __('and the'),
+            'legal_mentions_link_part_4' => __('information statement'),
+            'legal_mentions_text_part_5' => __('of Bridge, a licensed payment institution.'),
         ];
         
         return [
@@ -153,12 +159,31 @@ class ConfigProvider implements ConfigProviderInterface
                     'store' => $this->getStore()->getId(),
                     'banks' => self::$banks,
                     'translations' => $translations,
-                    'logo' => $this->assetRepository
-                                ->createAsset('Bridgepay_Bridge::images/logo-payment.png')
-                                ->getUrl()
+                    'logo' => $this->getAsset('images/logo-payment.png'),
+                    'images' => [
+                        'bank' => $this->getAsset('images/bank.png'),
+                        'auth' => $this->getAsset('images/auth.png'),
+                        'done' => $this->getAsset('images/done.png'),
+                        'arrow' => $this->getAsset('images/arrow.png'),
+                        'valid' => $this->getAsset('images/valid.png'),
+                    ],
+                    'terms_conditions_link' => $this->getTermsAndConditionsLink(),
+                    'privacy_policy_link' => $this->getPrivacyPolicyLink(),
                 ]
             ]
         ];
+    }
+
+    /**
+     * Get asset URL
+     * 
+     * @param string
+     * 
+     * @return string
+     */
+    private function getAsset($asset)
+    {
+        return $this->assetRepository->createAsset('Bridgepay_Bridge::' . $asset)->getUrl();
     }
 
     /**
@@ -189,5 +214,37 @@ class ConfigProvider implements ConfigProviderInterface
             $this->storeCode = $this->getStore()->getCode();
         }
         return $this->storeCode;
+    }
+
+    /**
+     * Get terms & conditions link from language context
+     *
+     * @return string
+     */
+    public function getTermsAndConditionsLink()
+    {
+        $langContext = strtolower(self::$countryCode);
+
+        if (false === array_key_exists($langContext, LegalMentions::TERMS_CONDITIONS)) {
+            $langContext = 'default';
+        }
+
+        return LegalMentions::TERMS_CONDITIONS[$langContext];
+    }
+
+    /**
+     * Get privacy policy link from language context
+     *
+     * @return string
+     */
+    public function getPrivacyPolicyLink()
+    {
+        $langContext = strtolower(self::$countryCode);
+
+        if (false === array_key_exists($langContext, LegalMentions::PRIVACY_POLICY)) {
+            $langContext = 'default';
+        }
+
+        return LegalMentions::PRIVACY_POLICY[$langContext];
     }
 }

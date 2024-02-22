@@ -67,12 +67,12 @@ class TreeBuilder
         }
         $self = $this;
         usort($banksTree, function ($a, $b) use ($self) {
-            return $self->sortByNameCountry($a, $b);
+            return (int) $self->sortByNameCountry($a, $b);
         });
 
         foreach ($banksTree as &$bankItem) {
             usort($bankItem['children'], function ($a, $b) use ($self) {
-                return $self->sortByNameCountry($a, $b);
+                return (int) $self->sortByNameCountry($a, $b);
             });
         }
 

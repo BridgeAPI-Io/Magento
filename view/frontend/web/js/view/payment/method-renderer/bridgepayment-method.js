@@ -39,6 +39,10 @@ define([
             return window.checkoutConfig.payment.bridgepayment.logo;
         },
 
+        getImages: function() {
+            return window.checkoutConfig.payment.bridgepayment.images;
+        },
+
         getT: function(toTranslate) {
             return window.checkoutConfig.payment.bridgepayment.translations[toTranslate];
         },
@@ -77,6 +81,14 @@ define([
             });
             this.banks = banks;
             return banks;
+        },
+
+        getTermsAndConditionsLink: function () {
+            return window.checkoutConfig.payment.bridgepayment.terms_conditions_link;
+        },
+
+        getPrivacyPolicyLink: function () {
+            return window.checkoutConfig.payment.bridgepayment.privacy_policy_link;
         },
 
         searchBank: function(reset) {

@@ -29,7 +29,7 @@
             <bridgepayment>
                 <active>1</active>
                 <label>Bridge</label>
-                <title>Bank Payment by Bridge</title>
+                <title>Bank Payment</title>
                 <model>Bridgepay\Bridge\Model\Payment\Bridge</model>
                 <order_status_waiting>bridge_waiting</order_status_waiting>
                 <order_status_processing>processing</order_status_processing>

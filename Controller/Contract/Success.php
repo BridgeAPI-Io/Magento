@@ -66,6 +66,16 @@ class Success extends \Magento\Checkout\Controller\Onepage
     protected $errorResponse;
 
     /**
+     * @var \Magento\Sales\Api\OrderManagementInterface
+     */
+    protected $orderManagement;
+
+    /**
+     * @var \Magento\Quote\Api\CartRepositoryInterface
+     */
+    protected $cartRepository;
+
+    /**
      * Success constructor.
      *
      * @param Context $context
@@ -87,6 +97,8 @@ class Success extends \Magento\Checkout\Controller\Onepage
      * @param \Bridgepay\Bridge\Helper\Banks $bankHelper
      * @param InvoiceService $invoiceService
      * @param InvoiceSender $invoiceSender
+     * @param \Magento\Sales\Api\OrderManagementInterface $orderManagement
+     * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
      * @param Transaction $transaction
      */
     public function __construct(
@@ -109,6 +121,8 @@ class Success extends \Magento\Checkout\Controller\Onepage
         \Bridgepay\Bridge\Helper\Banks $bankHelper,
         InvoiceService $invoiceService,
         InvoiceSender $invoiceSender,
+        \Magento\Sales\Api\OrderManagementInterface $orderManagement,
+        \Magento\Quote\Api\CartRepositoryInterface $cartRepository,
         Transaction $transaction
     ) {
         $this->orderRepository = $orderRepository;
@@ -117,6 +131,8 @@ class Success extends \Magento\Checkout\Controller\Onepage
         $this->invoiceSender = $invoiceSender;
         $this->date = $date;
         $this->bankHelper = $bankHelper;
+        $this->orderManagement = $orderManagement;
+        $this->cartRepository = $cartRepository;
 
         parent::__construct(
             $context,
@@ -153,7 +169,7 @@ class Success extends \Magento\Checkout\Controller\Onepage
         $order = $this->orderRepository->get($orderId);
 
         if ($this->isPaymentBridgeConfirmed($order, $orderId) === false) {
-            return $this->redirectOnError($order, $this->errorResponse);
+            return $this->redirectToCart($this->errorResponse);
         }
 
         if ($order->canInvoice()) {
@@ -264,5 +280,43 @@ class Success extends \Magento\Checkout\Controller\Onepage
         $this->errorResponse = __('No payment status match, please try again.');
 
         return false;
+    }
+
+    /**
+     * Redirect to cart after cancelling order
+     *
+     * @param string $message
+     *
+     * @return \Magento\Framework\Controller\Result\Redirect
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function redirectToCart($message)
+    {
+        // Mettre la commande en processing
+        $session = $this->getOnepage()->getCheckout();
+        if (!$this->_objectManager->get(\Magento\Checkout\Model\Session\SuccessValidator::class)->isValid()) {
+            return $this->resultRedirectFactory->create()->setPath('checkout/cart');
+        }
+
+        $orderId = $session->getLastOrderId();
+        $order = $this->orderRepository->get($orderId);
+
+        $this->messageManager->addErrorMessage($message);
+        $quote = $this->cartRepository->get($order->getQuoteId());
+        $quote->setIsActive(true);
+        $this->cartRepository->save($quote);
+        $this->getOnepage()->getCheckout()->replaceQuote($quote)->unsLastRealOrderId();
+
+        try {
+            $this->orderManagement->cancel($orderId);
+        } catch (\Exception $e) {
+            
+            $this->bankHelper->addLog(
+                'Cancel order',
+                __('Exception when order is cancelled: ' . $e->getTraceAsString())
+            );
+        }
+
+        return $this->resultRedirectFactory->create()->setPath('checkout/cart');
     }
 }

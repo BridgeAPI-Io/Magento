@@ -242,7 +242,7 @@ class APIClient
     {
         $om = \Magento\Framework\App\ObjectManager::getInstance();
         /** @var \Magento\Framework\App\State $state */
-        $state = $om->get(Magento\Framework\App\State::class);
+        $state = $om->get(\Magento\Framework\App\State::class);
         return \Magento\Framework\App\State::MODE_DEVELOPER === $state->getMode();
     }
 }

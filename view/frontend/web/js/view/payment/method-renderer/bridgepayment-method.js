@@ -59,7 +59,7 @@ define([
             $.each(window.checkoutConfig.payment.bridgepayment.banks, (key, bank) => {
                 bank.id_parent = key;                
                 bank.is_children = 0;
-                var removedBanks = ['SG', 'LCL'];
+                var removedBanks = ['LCL'];
                 if (removedBanks.indexOf(bank.name) === -1) {
                     if (typeof bank.id_bank == 'undefined') {
                         bank.id_bank = 'parent_' + key;
@@ -147,6 +147,9 @@ define([
 
         filterBank: function(bank, search, idSelectedParent) {
             var isBankFound = bank.name.toLowerCase().includes(search.toLowerCase());
+            if (search.toLowerCase().includes('so') || search.toLowerCase().includes('ge')) {
+                isBankFound = isBankFound || bank.name.includes('SG');
+            }
             return isBankFound && (idSelectedParent === -1 || bank.id_parent === idSelectedParent);
         },
 

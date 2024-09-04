@@ -129,13 +129,31 @@ class ConfigProvider implements ConfigProviderInterface
 
         if (empty(self::$banks) === true || self::$countryCode !== $countryCode) {
             self::$countryCode = $countryCode;
+            $banks = [];
             $bankResponse = $this->bankHelper->getBanks(false, $this->getStore()->getId());
-            self::$banks = [];
             if ($bankResponse['success'] === true) {
-                $bankLists = new TreeBuilder(empty($countryCode) ? 'FR' : $countryCode);
-                if ($bankResponse['response'] instanceof ListBanksResponse) {
-                    self::$banks = $bankLists->build($bankResponse['response']);
+                $errorResponse = !($bankResponse['response'] instanceof ListBanksResponse);
+
+                if ($errorResponse === false) {
+                    $banks = $bankResponse['response']->getModel()->getBanks();
                 }
+
+                while ($errorResponse === false && $bankResponse['response']->getModel()->getAfter() !== '') {
+                    $bankResponse = $this->bankHelper->getBanks(false, $this->getStore()->getId(), false, $bankResponse['response']->getModel()->getAfter());
+                    $errorResponse = !($bankResponse['response'] instanceof ListBanksResponse);
+
+                    if ($errorResponse === true) {
+                        break;
+                    }
+
+                    $banks = array_merge(
+                        $banks,
+                        $bankResponse['response']->getModel()->getBanks()
+                    );
+                }
+
+                $bankLists = new TreeBuilder(empty($countryCode) ? 'FR' : $countryCode);
+                self::$banks = $bankLists->build($banks);
             }
         }
 

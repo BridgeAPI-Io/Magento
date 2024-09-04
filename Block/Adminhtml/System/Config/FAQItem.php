@@ -150,8 +150,8 @@ class FAQItem extends \Magento\Config\Block\System\Config\Form\Field
                 $content .= __('- Add your Sandbox client ID and client secret<br />');
                 $content .= __('<br />');
                 $content .= __('You can then make the first Test payment :<br />');
-                $content .= __('<a href="https://bridgeapi.zendesk.com/hc/en-150/articles/4428826451602-Guide-How-to-make-your-first-test-payment" target="_blank">');
-                $content .= __('https://bridgeapi.zendesk.com/hc/en-150/articles/4428826451602-Guide-How-to-make-your-first-test-payment</a>');
+                $content .= __('<a href="https://docs.bridgeapi.io/docs/testing-your-payment-flow-2" target="_blank">');
+                $content .= __('https://docs.bridgeapi.io/docs/testing-your-payment-flow-2</a>');
                 break;
             case "7":
                 $content = __('Once you are ready to bill your customers with our module, you can switch to Production mode.<br />');
@@ -163,7 +163,7 @@ class FAQItem extends \Magento\Config\Block\System\Config\Form\Field
             case "8":
                 $content = __('Yes, you need to configure webhooks in order to get more details about the transactions and their status.<br />');
                 $content .= __('You need to add this callback URL :');
-                $content .= '<br /><u><b>' . $this->urlHelper->getUrl('bridge/contract/webhook', []) . 'webhook</b></u><br />';
+                $content .= '<br /><u><b>' . $this->urlHelper->getUrl('rest/v1/bridge/webhook', []) . 'webhook</b></u><br />';
                 $content .= __(' to your Bridge dashboard > Webhooks > Add a webhook > And select this one:<br /> ');
                 $content .= __('payment.transaction.updated.<br />');
                 $content .= __('You can name the webhook as you wish.');

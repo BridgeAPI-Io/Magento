@@ -109,7 +109,7 @@ class SetupBridge extends \Magento\Config\Block\System\Config\Form\Field
         $html .= '<li>' . __('Enable test mode below') . '</li>';
         $html .= '<li>' . __('Insert test client ID and client Secret below') . '</li>';
         
-        $link = 'https://bridgeapi.zendesk.com/hc/en-150/articles/4428826451602-Guide-How-to-make-your-first-test-payment-';
+        $link = 'https://docs.bridgeapi.io/docs/testing-your-payment-flow-2';
         $html .= '<li><a href="' . $link . '" target="_blank">';
         $html .= __('Test payments') . '</a></li>';
         $html .= '</ul>';
@@ -118,7 +118,7 @@ class SetupBridge extends \Magento\Config\Block\System\Config\Form\Field
         $html .= '<div class="info-item">';
         $html .= '<h2>' . __('Go to production') . '</h2>';
         $html .= '<ul>';
-        $link = 'https://meetings.hubspot.com/david-l2';
+        $link = 'https://meetings.hubspot.com/philippe-d/meeting-link-self-serve-round-robin?uuid=3cd71f68-6299-4480-8c1b-f840201fd939';
         $html .= '<li><a href="' . $link . '" target="_blank">';
         $html .= __('Schedule an appointment here') . '</a></li>';
         $html .= '</ul>';

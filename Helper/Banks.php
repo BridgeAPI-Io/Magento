@@ -220,9 +220,9 @@ class Banks
      *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getBanks($count = false, $storeId = false, $websiteId = false)
+    public function getBanks($count = false, $storeId = false, $websiteId = false, $after = '')
     {
-        $request = new ListBanksRequest();
+        $request = new ListBanksRequest([], '1.1', ['after' => $after]);
 
         $responseCall = $this->apiClient->sendRequest($request, false, $storeId);
 

@@ -46,9 +46,9 @@ define([
         getT: function(toTranslate) {
             return window.checkoutConfig.payment.bridgepayment.translations[toTranslate];
         },
-
-        isThereBanks: function() {
-            return window.checkoutConfig.payment.bridgepayment.banks.length > 0;
+        
+        isThereNoBanks: function() {
+            return window.checkoutConfig.payment.bridgepayment.banks.length <= 0;
         },
 
         /**

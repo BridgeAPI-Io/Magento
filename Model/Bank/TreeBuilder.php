@@ -19,8 +19,8 @@
 
 namespace Bridgepay\Bridge\Model\Bank;
 
+use BridgeSDK\Model\Bank\Bank;
 use BridgeSDK\Response\BankResponse;
-use BridgeSDK\Response\ListBanksResponse;
 
 class TreeBuilder
 {
@@ -32,13 +32,13 @@ class TreeBuilder
     /**
      * List banks
      *
-     * @param ListBanksResponse $banks
+     * @param Bank[] $banks
      */
-    public function build(ListBanksResponse $banks)
+    public function build(array $banks)
     {
         $banksTree = [];
         /** @var BankResponse $bank */
-        foreach ($banks->getModel()->getBanks() as $bank) {
+        foreach ($banks as $bank) {
             if (empty($bank->getParentName())) {
                 $banksTree[$bank->getName()] = [
                     'children' => [],

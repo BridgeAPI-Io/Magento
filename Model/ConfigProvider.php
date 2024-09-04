@@ -128,13 +128,13 @@ class ConfigProvider implements ConfigProviderInterface
         $countryCode = $this->directoryHelper->getDefaultCountry($quote->getStoreId());
 
         if (empty(self::$banks) === true || self::$countryCode !== $countryCode) {
+            self::$countryCode = $countryCode;
             $bankResponse = $this->bankHelper->getBanks(false, $this->getStore()->getId());
             self::$banks = [];
             if ($bankResponse['success'] === true) {
                 $bankLists = new TreeBuilder(empty($countryCode) ? 'FR' : $countryCode);
                 if ($bankResponse['response'] instanceof ListBanksResponse) {
                     self::$banks = $bankLists->build($bankResponse['response']);
-                    self::$countryCode = $countryCode;
                 }
             }
         }
@@ -223,7 +223,7 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getTermsAndConditionsLink()
     {
-        $langContext = strtolower(self::$countryCode);
+        $langContext = strtolower(empty(self::$countryCode) === false ? self::$countryCode : 'default');
 
         if (false === array_key_exists($langContext, LegalMentions::TERMS_CONDITIONS)) {
             $langContext = 'default';
@@ -239,7 +239,7 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getPrivacyPolicyLink()
     {
-        $langContext = strtolower(self::$countryCode);
+        $langContext = strtolower(empty(self::$countryCode) === false ? self::$countryCode : 'default');
 
         if (false === array_key_exists($langContext, LegalMentions::PRIVACY_POLICY)) {
             $langContext = 'default';

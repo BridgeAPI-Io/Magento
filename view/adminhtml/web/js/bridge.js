@@ -28,6 +28,11 @@ require([
             e.preventDefault();
             copyToClipboard();
         });
+        $('#bridge_setup_general_payment_account').change(function(e) {
+            e.preventDefault();
+            bridgeDisplayPaymentLabel();
+        });
+        bridgeDisplayPaymentLabel();
     });
 
     function copyToClipboard() {
@@ -81,6 +86,16 @@ require([
             $('.bridge_dev').removeClass('hidden');
         } else {
             $('.bridge_prod').removeClass('hidden');
+        }
+    }
+
+    function bridgeDisplayPaymentLabel() {
+        var paymentAccountBridge = $('#bridge_setup_general_payment_account').val();
+
+        if (paymentAccountBridge == 1) {
+            $('#row_bridge_setup_general_payment_label').addClass('hidden');
+        } else {
+            $('#row_bridge_setup_general_payment_label').removeClass('hidden');
         }
     }
 });

@@ -215,7 +215,7 @@ class Contract extends \Magento\Checkout\Controller\Onepage
         $this->getOnepage()->getCheckout()->replaceQuote($quote)->unsLastRealOrderId();
 
         try {
-            $this->orderManagement->cancel($orderId);
+            $this->orderManagement->cancel($order->getEntityId());
         } catch (\Exception $ex) {
             $this->logger->debug('Exception while cancelling order with orderManagement :' . $ex->getMessage());
         }

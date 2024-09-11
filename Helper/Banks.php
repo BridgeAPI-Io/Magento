@@ -19,6 +19,7 @@
 
 namespace Bridgepay\Bridge\Helper;
 
+use Bridgepay\Bridge\Model\Payment\CreatePaymentTransactionAccountMode;
 use BridgeSDK\Model\Payment\CreatePayment;
 use BridgeSDK\Model\Payment\CreatePaymentTransaction;
 use BridgeSDK\Model\Payment\Payment;
@@ -28,6 +29,8 @@ use BridgeSDK\Request\ListBanksRequest;
 use BridgeSDK\Request\PaymentRequest;
 use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 use Magento\Framework\UrlInterface;
+use Magento\Store\Api\Data\StoreInterface;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * Banks manipulation helper
@@ -60,23 +63,41 @@ class Banks
     protected $_storeManager;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $_storeConfig;
+
+    /**
+     * @var \Magento\Store\Model\Store
+     */
+    protected $store;
+
+    /**
+     * @var string|int
+     */
+    protected $storeCode;
+
+    /**
      * Banks Helper constructor.
      *
      * @param UrlInterface $urlInterface
      * @param APIClient $apiClient
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $storeConfig
      */
     public function __construct(
         UrlInterface $urlInterface,
         APIClient $apiClient,
         \Psr\Log\LoggerInterface $logger,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\Config\ScopeConfigInterface $storeConfig
     ) {
         $this->logger = $logger;
         $this->apiClient = $apiClient;
         $this->urlInterface = $urlInterface;
         $this->_storeManager = $storeManager;
+        $this->_storeConfig = $storeConfig;
     }
 
     /**
@@ -121,26 +142,39 @@ class Banks
         $storeName = $this->_storeManager->getStore()->getName();
         $webSiteName = $this->_storeManager->getWebsite()->getName();
         $webSiteName .= $storeName != '' ? '-' . $storeName : '';
-        $storeNameCut = \mb_strlen($webSiteName) <= 40 ? $webSiteName : \substr($webSiteName, 0, 39);
-
+        $paymentAccount = (bool) $this->getConfig(Config::XML_PATH_PAYMENT_ACCOUNT);
+        $paymentLabel = $this->getConfig(Config::XML_PATH_PAYMENT_LABEL);
+        $labelCut = null;
+        if ($paymentAccount === false) {
+            $label = false === empty($paymentLabel) ? $paymentLabel : $webSiteName;
+            $labelCut = \mb_strlen($label) <= 40 ? $label : \substr($label, 0, 39);
+        }
+        
         $body = (new CreatePayment())
             ->setBankId((int) $idBank)
             ->setSuccessfulCallbackUrl($this->urlInterface->getUrl('bridge/contract/success'))
             ->setUnsuccessfulCallbackUrl($this->urlInterface->getUrl('bridge/contract/failed'))
-            ->setTransactions([
-                (new CreatePaymentTransaction())
-                    ->setCurrency('EUR')
-                    ->setLabel($storeNameCut)
-                    ->setAmount($amount)
-                    ->setClientReference($clientRef)
-                    ->setEndToEndId($orderId),
-            ])
             ->setUser(
                 (new PaymentUser())
                     ->setFirstName($order->getCustomerFirstname())
                     ->setLastName($order->getCustomerLastname())
                     ->setIpAddress($IpAddress)
-            );
+        );
+
+        $transactions = (new CreatePaymentTransactionAccountMode());
+        if ($paymentAccount === false) {
+            $transactions = (new CreatePaymentTransaction());
+        }
+        $transactions
+                ->setCurrency('EUR')
+                ->setAmount($amount)
+                ->setClientReference($clientRef)
+                ->setEndToEndId($orderId);
+
+        if ($paymentAccount === false) {
+            $transactions = $transactions->setLabel($labelCut);
+        }
+        $body = $body->setTransactions([$transactions]);
 
         $this->addLog('Bridge API Create payment request', [json_encode($body)]);
 
@@ -243,5 +277,53 @@ class Banks
         } else {
             return $responseCall;
         }
+    }
+
+    /**
+     * Get current store
+     *
+     * @return StoreInterface
+     */
+    private function getStore()
+    {
+        if (!$this->store) {
+            try {
+                $this->store = $this->_storeManager->getStore();
+            } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+                $this->store = $this->_storeManager->getStores()[0];
+            }
+        }
+
+        return $this->store;
+    }
+
+    /**
+     * Get current store code
+     *
+     * @return int|string|null
+     */
+    private function getStoreCode()
+    {
+        if (!$this->storeCode) {
+            $this->storeCode = ($this->getStore()) ? $this->getStore()->getCode() : null;
+        }
+
+        return $this->storeCode;
+    }
+
+    /**
+     * Get config value
+     *
+     * @param string $path
+     *
+     * @return mixed
+     */
+    private function getConfig(string $path)
+    {
+        return $this->_storeConfig->getValue(
+            $path,
+            ScopeInterface::SCOPE_STORE,
+            $this->getStoreCode()
+        );
     }
 }

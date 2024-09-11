@@ -23,6 +23,8 @@
         <bridge_setup>
             <general>
                 <mode>dev</mode>
+                <payment_account>1</payment_account>
+                <payment_label></payment_label>
             </general>
         </bridge_setup>
         <payment>

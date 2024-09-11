@@ -38,6 +38,9 @@ class Config
     const XML_PATH_API_CLIENT_ID_PRODUCTION = 'bridge_setup/general/client_id_production';
     const XML_PATH_API_CLIENT_SECRET_PRODUCTION = 'bridge_setup/general/client_secret_production';
 
-    const XML_PATH_ORDER_WAITING = 'payment/bridgepayment/order_status_waiting';
-    const XML_PATH_ORDER_TRANSFERT_DONE = 'payment/bridgepayment/order_status_processing';
+    public const XML_PATH_PAYMENT_ACCOUNT = 'bridge_setup/general/payment_account';
+    public const XML_PATH_PAYMENT_LABEL = 'bridge_setup/general/payment_label';
+
+    public const XML_PATH_ORDER_WAITING = 'payment/bridge/order_status_waiting';
+    public const XML_PATH_ORDER_TRANSFERT_DONE = 'payment/bridge/order_status_processing';
 }

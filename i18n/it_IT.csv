@@ -162,3 +162,9 @@
 "Send a message with the following information:<br />","Inviate un messaggio con le seguenti informazioni:<br />",
 "- Multishop: yes / no","- Multishop: Si / No",
 "contact us here","contattaci qui"
+"Integrated","Integrata"
+"In integrated mode, bank selection is done directly in the Prestashop checkout.","In modalità integrata, la selezione della banca avviene direttamente nel checkout di Prestashop."
+"Pay by link","Pagamento tramite link"
+"In Pay by link mode, the customer is redirected to a payment portal on the Bridge side.","In modalità Pay by link, il cliente viene reindirizzato verso un portale di pagamento sul lato Bridge."
+"Payment account","Conto di pagamento"
+"Label","Etichetta"

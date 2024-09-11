@@ -67,6 +67,13 @@
                     <frontend_model>Bridgepay\Bridge\Block\Adminhtml\System\Config\Login</frontend_model>
                     <comment>This information is located in your Bridge dashboard: 'Settings' > 'General settings'</comment>
                 </field>
+                <field id="payment_account" translate="label comment" type="select" sortOrder="40" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Payment account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="payment_label" translate="label comment" sortOrder="50" type="text" showInDefault="0" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                </field>
             </group>
         </section>
         <section id="bridge_faq" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
